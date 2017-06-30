@@ -1,0 +1,112 @@
+{
+	"success": {
+		"challengeTitle": "Tic Tac Toe",
+		"publicId": "tic-tac-toe",
+		"type": "BATTLE",
+		"gameResult": {
+			"frames": [
+				{
+					"gameInformation": "",
+					"summary": "",
+					"view": "_ _ _ _ _ _ _ _ _\n",
+					"keyframe": true,
+					"agentId": -1
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 4\n",
+					"summary": "$0 set x to (1, 1).\n",
+					"view": "_ _ _ _ o _ _ _ _\n",
+					"keyframe": true,
+					"agentId": 0
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 0\n",
+					"summary": "$1 set x to (0, 0).\n",
+					"view": "x _ _ _ o _ _ _ _\n",
+					"keyframe": true,
+					"agentId": 1
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 2\n",
+					"summary": "$0 set x to (2, 0).\n",
+					"view": "x _ o _ o _ _ _ _\n",
+					"keyframe": true,
+					"agentId": 0
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 6\n",
+					"summary": "$1 set x to (0, 2).\n",
+					"view": "x _ o _ o _ x _ _\n",
+					"keyframe": true,
+					"agentId": 1
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 3\n",
+					"summary": "$0 set x to (0, 1).\n",
+					"view": "x _ o o o _ x _ _\n",
+					"keyframe": true,
+					"agentId": 0
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 5\n",
+					"summary": "$1 set x to (2, 1).\n",
+					"view": "x _ o o o x x _ _\n",
+					"keyframe": true,
+					"agentId": 1
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 1\n",
+					"summary": "$0 set x to (1, 0).\n",
+					"view": "x x o o o x x _ _\n",
+					"keyframe": true,
+					"agentId": 0
+				},
+				{
+					"gameInformation": "",
+					"stdout": "SET 7\n",
+					"summary": "$1 set x to (1, 2).\n",
+					"view": "x x o o o x x x _\n",
+					"keyframe": true,
+					"agentId": 1
+				},
+				{
+					"gameInformation": "The game is tied.",
+					"stdout": "SET 8\n",
+					"summary": "$0 set x to (2, 2).\n",
+					"view": "x x o o o x x x o\n",
+					"keyframe": true,
+					"agentId": 0
+				}
+			],
+			"gameId": 0,
+			"refereeInput": "",
+			"scores": [
+				0,
+				0
+			],
+			"ranks": [
+				0,
+				0
+			],
+			"tooltips": [
+			],
+			"agents": [
+				{
+					"index": 0,
+					"user": "tic"
+				},
+				{
+					"index": 1,
+					"user": "tac"
+				}
+			]
+		}
+	}
+}

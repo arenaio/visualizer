@@ -3,6 +3,7 @@
   const DOUBLE_PI = Math.PI * 2
   ctx.lineWidth = 5
 
+  const $slice = Array.prototype.slice;
 
   class Grid {
     constructor() {
@@ -88,6 +89,24 @@
     checkDraw() {
       return false
     }
+  }
+
+  function stepBack(e) {
+
+  }
+
+  function play(e) {
+
+  }
+
+  function stepForward(e) {
+
+  }
+
+  function init() {
+    document.querySelector('#step-back').addEventListener('click', stepBack)
+    document.querySelector('#play').addEventListener('click', play)
+    document.querySelector('#step-forward').addEventListener('click', stepForward)
   }
 
   const gameGrid = new Grid()
