@@ -8,15 +8,15 @@
 				{
 					"gameInformation": "",
 					"summary": "",
-					"view": "_ _ _ _ _ _ _ _ _\n",
+					"view": "_________\n",
 					"keyframe": true,
 					"agentId": -1
 				},
 				{
 					"gameInformation": "",
 					"stdout": "SET 4\n",
-					"summary": "$0 set x to (1, 1).\n",
-					"view": "_ _ _ _ o _ _ _ _\n",
+					"summary": "$0 set o to (1, 1).\n",
+					"view": "____o____\n",
 					"keyframe": true,
 					"agentId": 0
 				},
@@ -24,15 +24,15 @@
 					"gameInformation": "",
 					"stdout": "SET 0\n",
 					"summary": "$1 set x to (0, 0).\n",
-					"view": "x _ _ _ o _ _ _ _\n",
+					"view": "x___o____\n",
 					"keyframe": true,
 					"agentId": 1
 				},
 				{
 					"gameInformation": "",
 					"stdout": "SET 2\n",
-					"summary": "$0 set x to (2, 0).\n",
-					"view": "x _ o _ o _ _ _ _\n",
+					"summary": "$0 set o to (2, 0).\n",
+					"view": "x_o_o____\n",
 					"keyframe": true,
 					"agentId": 0
 				},
@@ -40,15 +40,15 @@
 					"gameInformation": "",
 					"stdout": "SET 6\n",
 					"summary": "$1 set x to (0, 2).\n",
-					"view": "x _ o _ o _ x _ _\n",
+					"view": "x_o_o_x__\n",
 					"keyframe": true,
 					"agentId": 1
 				},
 				{
 					"gameInformation": "",
 					"stdout": "SET 5\n",
-					"summary": "$0 set x to (2, 1).\n",
-					"view": "x _ o _ o o x _ _\n",
+					"summary": "$0 set o to (2, 1).\n",
+					"view": "x_o_oox__\n",
 					"keyframe": true,
 					"agentId": 0
 				},
@@ -56,7 +56,7 @@
 					"gameInformation": "$0 won the game.",
 					"stdout": "SET 3\n",
 					"summary": "$1 set x to (0, 1).\n",
-					"view": "x _ o x o o x _ _\n",
+					"view": "x_oxoox__\n",
 					"keyframe": true,
 					"agentId": 1
 				}
@@ -72,7 +72,7 @@
 				0
 			],
 			"tooltips": [
-				"{\"turn\":5,\"text\":\"$0 makes a critical mistake!\",\"event\":0}"
+				"{\"turn\":5,\"text\":\"$0 makes a critical mistake!\",\"event\":0}",
 				"{\"turn\":6,\"text\":\"$1 won!\",\"event\":1}"
 			],
 			"agents": [
