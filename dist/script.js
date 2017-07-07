@@ -1,213 +1,153 @@
 (function (namespace) {
-  const ctx = document.querySelector('#canvas').getContext('2d')
-  const DOUBLE_PI = Math.PI * 2
-  ctx.lineWidth = 5
-
-  const $slice = Array.prototype.slice
   let frames = []
   let len = 0
   let currentFrame = 0
 
   class Grid {
-    constructor() {
+    constructor(canvas) {
+      this.canvas = canvas
+      this.context = canvas.getContext('2d')
+      this.context.lineWidth = 5
       this.positions = []
       this.keyFrame = 0
     }
 
     draw() {
-      let i = 0, x, y, pos
+      this.context.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.beginPath()
-      // create lines in x direction
-      for (; i < 2; i++) {
-        x = 100 + 100*i
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, 300)
-      }
-      // create lines in y direction
-      for (i = 0; i < 2; i++) {
-        y = 100 + 100*i
-        ctx.moveTo(0, y)
-        ctx.lineTo(300, y)
-      }
+      this.drawLines()
 
-      ctx.strokeStyle = '#000000'
-      ctx.stroke()
-      ctx.closePath()
-
-      pos = this.positions
-      for (i = 0; i < 9; i++) {
-        x = i % 3 | 0
-        y = i / 3 | 0
-        if (pos[i] === 'x') {
-            this.drawX(x, y)
-        } else if (pos[i] === 'o') {
-            this.drawO(x, y)
-        } 
-      }
+      this.drawPositions()
     }
 
-    undraw(cellX, cellY) {
-      ctx.beginPath()
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(cellX*100,cellY*100, cellX*100 + 50, cellY * 100 + 50);
-      ctx.closePath()
+    drawLines() {
+      this.context.beginPath()
+
+      // create lines in x direction
+      for (let i = 0; i < 2; i++) {
+        let x = 100 + 100 * i
+        this.context.moveTo(x, 0)
+        this.context.lineTo(x, 300)
+      }
+
+      // create lines in y direction
+      for (let i = 0; i < 2; i++) {
+        let y = 100 + 100 * i
+        this.context.moveTo(0, y)
+        this.context.lineTo(300, y)
+      }
+
+      this.context.strokeStyle = '#000000'
+      this.context.stroke()
+      this.context.closePath()
+    }
+
+    drawPositions() {
+      this.positions.forEach((pos, i) => {
+        if (pos === '_') {
+          return
+        }
+
+        let x = i % 3 | 0
+        let y = i / 3 | 0
+        if (pos === 'o') {
+          this.drawO(x, y)
+        } else {
+          this.drawX(x, y)
+        }
+      })
     }
 
     drawX(cellX, cellY) {
       var i = 0, dx, dy
-      ctx.beginPath()
+      this.context.beginPath()
       for (i = 0; i < 2; i++) {
-        dx = (cellX * 100) + 10 + (80*i)
+        dx = (cellX * 100) + 10 + (80 * i)
         dy = (cellY * 100) + 10
-        ctx.moveTo(dx, dy)
-        dx = (cellX * 100) + 90 - (80*i)
+        this.context.moveTo(dx, dy)
+        dx = (cellX * 100) + 90 - (80 * i)
         dy = (cellY * 100) + 90
-        ctx.lineTo(dx, dy)
+        this.context.lineTo(dx, dy)
       }
-      ctx.strokeStyle = '#3333ff'
-      ctx.stroke()
-      ctx.closePath()
+      this.context.strokeStyle = '#3333ff'
+      this.context.stroke()
+      this.context.closePath()
     }
 
-    drawO (cellX, cellY) {
-      ctx.beginPath()
-      ctx.arc(cellX*100 + 50,
-              cellY*100 + 50,
-              40, 0, DOUBLE_PI, false)
-      ctx.strokeStyle = '#ff3333'
-      ctx.stroke()
-      ctx.closePath()
-    }
-
-    markCellWithX(x, y) {
-      this.positions[(y * 3) + x] = 'x'
-      this.keyFrame++
-      this.draw()
-    }
-
-    markCellWithO(x, y) {
-      this.positions[(y * 3) + x] = 'o'
-      this.keyFrame++
-      this.draw()
-    }
-
-    unmarkCellWithX(x, y) {
-      this.positions[(y * 3) + x] = '-'
-      this.keyFrame--
-      this.draw()
-    }
-
-    unmarkCellWithO(x, y) {
-      this.positions[(y * 3) + x] = '-'
-      this.keyFrame--
-      this.draw()
-    }
-
-    isMarkedCell(x, y) {
-      return typeof this.positions[(y * 3) + x] !== 'undefined' 
-    }
-
-    checkDraw() {
-      return false
+    drawO(cellX, cellY) {
+      this.context.beginPath()
+      this.context.arc(cellX * 100 + 50, cellY * 100 + 50, 40, 0, Math.PI * 2, false)
+      this.context.strokeStyle = '#ff3333'
+      this.context.stroke()
+      this.context.closePath()
     }
   }
 
-  function fillGrid(current) {
-    const frame = frames[current - 1]
-    if (!frame.view) {
-      console.log('no view, aborting')
-      return
-    }
-
-    const settings = frame.view.split('')
-    // console.log(settings)
-    settings.forEach((value, idx) => {
-      console.log('Value', value)
-
-      // let pos = idx % 3
-      let pos = 0
-      console.log('Position', pos)
-
-      switch (value) {
-        case 'o': 
-          if (namespace.Grid.isMarkedCell(pos, idx / 3)) {
-            namespace.Grid.unmarkCellWithO(pos, idx / 3);
-          } else {
-            namespace.Grid.markCellWithO(pos, idx / 3);
-          }
-          break;
-        case 'x': 
-          if (namespace.Grid.isMarkedCell(pos, idx / 3)) {
-            namespace.Grid.unmarkCellWithX(pos, idx / 3);
-          } else {
-            namespace.Grid.markCellWithX(pos, idx / 3);
-          }
-          break;
-        default:
-          break;
-      }
-    })
-  }
-
-  function stepBack(e) {
-    console.log('step back')
-    if (currentFrame <= 1) {
+  function stepBack() {
+    if (currentFrame <= 0) {
       console.log('first reached')
       return
     }
 
     currentFrame--
-
-    displayStatus(currentFrame, len)
-    fillGrid(currentFrame)
+    showFrame(currentFrame)
   }
 
-  function play(e) {
-    console.log('play')
+  function play() {
+    const stopInterval = () => {
+      window.clearInterval(this.interval)
+      this.interval = null
+    }
+
+    if (this.interval) {
+      stopInterval()
+    }
+
+    this.interval = window.setInterval(
+      () => {
+        stepForward()
+        if (currentFrame === frames.length - 1) {
+          stopInterval()
+        }
+      },
+      500
+    )
+
   }
 
-  function stepForward(e) {
-    console.log('step forward')
+  function stepForward() {
     if (frames.length <= 0) {
       console.log('no frames')
       return
     }
 
-    if (currentFrame >= len) {
+    if (currentFrame >= frames.length - 1) {
       console.log('last reached')
       return
     }
 
     currentFrame++
-
-    displayStatus(currentFrame, len)
-    fillGrid(currentFrame)
+    showFrame(currentFrame)
   }
 
   function displayStatus(current, number) {
-    let statusText = `Frame ${current} of ${number}`
+    let statusText = `Frame ${current + 1} of ${number}`
     document.querySelector('#frames').innerText = statusText;
   }
 
-  function handleFrame(number, frame, count) {
+  function showFrame(number) {
     currentFrame = number
-    displayStatus(number, count)
+    displayStatus(number, frames.length)
+    gameGrid.positions = frames[number].view.replace('\n', '').split('')
+    gameGrid.draw()
   }
 
   function applyResult(response) {
-    console.log(response.success)
     frames = response.success.gameResult.frames
-    len = frames.length
-
-    handleFrame(1, frames[0], len)
+    showFrame(0)
   }
 
   function init() {
-    document.querySelector('#step-back').addEventListener('click', stepBack)
-    document.querySelector('#play').addEventListener('click', play)
-    document.querySelector('#step-forward').addEventListener('click', stepForward)
-
     const uri = window.location.href;
     const challengeCall = uri.split('#')
     let challengeUri = ''
@@ -223,11 +163,14 @@
     }).then((json) => {
       applyResult(json)
     })
-
   }
 
-  const gameGrid = new Grid()
+  const gameGrid = new Grid(document.querySelector('#canvas'))
   gameGrid.draw()
   namespace.Grid = gameGrid;
+  document.querySelector('#step-back').addEventListener('click', stepBack)
+  document.querySelector('#play').addEventListener('click', play)
+  document.querySelector('#step-forward').addEventListener('click', stepForward)
+  window.addEventListener('hashchange', init)
   init();
 }(window.Visualizer || (window.Visualizer = {})))
